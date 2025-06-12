@@ -30,8 +30,8 @@ export default async ({ req, res, log, error }) => {
   // The client (your React app) should send 'orderId' and 'amount' in the request body.
   let { amount } = JSON.parse(req.body);
 
-  if (!orderId || !amount) {
-    return res.json({ ok: false, msg: 'Missing orderId or amount in request body.' }, 400);
+  if (!amount) {
+    return context.res.json({ ok: false, msg: 'Missing amount in request body.' }, 400);
   }
 
   // A unique order ID is required for each transaction.
@@ -48,7 +48,7 @@ export default async ({ req, res, log, error }) => {
     }
   };
 
-  log(`Creating Midtrans transaction for order: ${uniqueOrderId}`);
+  context.log(`Creating Midtrans transaction for order: ${orderId}`);
 
   // --- 5. CREATE TRANSACTION AND GET TOKEN ---
   try {
